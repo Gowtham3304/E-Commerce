@@ -1,1 +1,29 @@
-a
+name: SonarQube Scan
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sonarqube_scan:
+    name: SonarQube Scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup SonarQube Scanner
+      uses: sonarsource/sonarqube-scan-action@master
+      with:
+        sonar-project-key: ${{ secrets.SONAR_PROJECT_KEY }}
+        sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
+        
+
+    - name: Build and analyze
+      run: sonar-scanner \
+  -Dsonar.projectKey=test \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://13.200.179.162:9000
+  
