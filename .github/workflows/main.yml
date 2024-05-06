@@ -20,10 +20,8 @@ jobs:
         sonar-project-key: ${{ secrets.SONAR_PROJECT_KEY }}
         sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
         
-
     - name: Build and analyze
-      run: sonar-scanner \
-  -Dsonar.projectKey=test \
-  -Dsonar.sources=. \
-  -Dsonar.host.url=http://13.200.179.162:9000
-  
+      run: sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=. -Dsonar.host.url=$SONAR_HOST_URL
+      env:
+        SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
